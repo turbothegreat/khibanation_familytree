@@ -33,20 +33,57 @@
       <p>🎂 1950</p>
     </div>
 
-    <!-- Connector from Khiba to children -->
+    <!-- Connector from grandparent to children -->
     <div class="connector"></div>
 
     <!-- Children container -->
     <div class="children">
-      <div class="person" data-name="Mokgwabone" onclick="showDetails('Mokgwabone')">
-        <h3>👨 Mokgwabone</h3>
-        <p>🎂 1975</p>
+
+      <!-- First child -->
+      <div class="person-branch">
+        <div class="person" data-name="Mokgwabone" onclick="showDetails('Mokgwabone')">
+          <h3>👨 Mokgwabone</h3>
+          <p>🎂 1975</p>
+        </div>
+
+        <!-- Connector from this child to grandchildren -->
+        <div class="connector"></div>
+
+        <!-- Grandchildren -->
+        <div class="children">
+          <div class="person" data-name="Ngwana wa ntlha" onclick="showDetails('Ngwana wa ntlha')">
+            <h3>🧑 Ngwana wa ntlha</h3>
+            <p>🎂 2000</p>
+          </div>
+          <div class="person" data-name="Ngwana wa bobedi" onclick="showDetails('Ngwana wa bobedi')">
+            <h3>🧑 Ngwana wa bobedi</h3>
+            <p>🎂 2002</p>
+          </div>
+        </div>
       </div>
 
-      <div class="person" data-name="Motshegetsi" onclick="showDetails('Motshegetsi')">
-        <h3>👨 Motshegetsi</h3>
-        <p>🎂 1980</p>
+      <!-- Second child -->
+      <div class="person-branch">
+        <div class="person" data-name="Motshegetsi" onclick="showDetails('Motshegetsi')">
+          <h3>👨 Motshegetsi</h3>
+          <p>🎂 1980</p>
+        </div>
+
+        <!-- Connector to grandchildren -->
+        <div class="connector"></div>
+
+        <div class="children">
+          <div class="person" data-name="Mabihi" onclick="showDetails('Mabihi')">
+            <h3>🧑 Mabihi</h3>
+            <p>🎂 2005</p>
+          </div>
+          <div class="person" data-name="Kebonang" onclick="showDetails('Kebonang')">
+            <h3>🧑 Kebonang</h3>
+            <p>🎂 2008</p>
+          </div>
+        </div>
       </div>
+
     </div>
 
   </main>
