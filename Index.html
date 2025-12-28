@@ -6,7 +6,7 @@
   <title>Khiba Nation Family Tree</title>
 
   <!-- Icons -->
-  <link rel="icon" href="FAMILY GATHERING LOGO(TRANSPARENT).png" type="image/svg+xml">
+  <link rel="icon" href="FAMILY GATHERING LOGO(TRANSPARENT).png" type="image/png">
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,7 @@
   <!-- Header -->
   <header class="header">
     <img src="FAMILY GATHERING LOGO(TRANSPARENT).png" alt="Family Logo" class="logo">
-    <h1>Our Family Tree</h1>
+    <h1>Khiba Nation Family Tree</h1>
   </header>
 
   <!-- Search -->
@@ -27,28 +27,31 @@
   <!-- Family Tree -->
   <main class="tree">
 
-    <div class="person" data-name="grandfather" onclick="showDetails('grandfather')">
-      <h3>👴 Grandfather</h3>
+    <!-- Grandparent -->
+    <div class="person" data-name="Khiba" onclick="showDetails('Khiba')">
+      <h3>👴 Khiba</h3>
       <p>🎂 1950</p>
     </div>
 
-    <div class="line"></div>
+    <!-- Connector from Khiba to children -->
+    <div class="connector"></div>
 
+    <!-- Children container -->
     <div class="children">
-      <div class="person" data-name="father" onclick="showDetails('father')">
-        <h3>👨 Father</h3>
+      <div class="person" data-name="Mokgwabone" onclick="showDetails('Mokgwabone')">
+        <h3>👨 Mokgwabone</h3>
         <p>🎂 1975</p>
       </div>
 
-      <div class="person" data-name="aunt" onclick="showDetails('aunt')">
-        <h3>👩 Aunt</h3>
+      <div class="person" data-name="Motshegetsi" onclick="showDetails('Motshegetsi')">
+        <h3>👨 Motshegetsi</h3>
         <p>🎂 1980</p>
       </div>
     </div>
 
   </main>
 
-  <!-- Popup -->
+  <!-- Popup for details -->
   <div id="popup" class="popup">
     <div class="popup-content">
       <button class="close-btn" onclick="closePopup()">✖</button>
@@ -56,6 +59,7 @@
     </div>
   </div>
 
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>

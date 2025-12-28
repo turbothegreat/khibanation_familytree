@@ -1,7 +1,7 @@
 const familyData = {
   Khiba: "Khiba o tsholwa ka ngwaga ya 1950. He is the foundation of our family and raised four children.",
-  father: "Father was born in 1975. He is married and has three children.",
-  aunt: "Aunt was born in 1980. She is a businesswoman and mother of two."
+  Mokgwabone: "Mokgwabone o tsholwa ka 1975. O nyetse mme o nale matlo a le mararo.",
+  Motshegetsi: "Motshegetsi o tsholwa ka 2000. Ke ngwana wa ga Mokgwabone wa ntlha."
 };
 
 function showDetails(person) {

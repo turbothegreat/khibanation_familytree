@@ -1,14 +1,16 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body */
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
   text-align: center;
   color: #222;
+  background-color: #555;
 }
 
 /* Header */
@@ -21,7 +23,7 @@ body {
 }
 
 .logo {
-  width: 60px;
+  width: 100px;
   height: auto;
 }
 
@@ -45,19 +47,35 @@ body {
   align-items: center;
 }
 
-.line {
+/* Connector (vertical line from parent) */
+.connector {
   width: 2px;
   height: 30px;
-  background: #555;
+  background: #000;
 }
 
-/* People */
+/* Children container */
 .children {
   display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  margin-top: 30px;
 }
 
+/* Horizontal line connecting children */
+.children::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #000;
+}
+
+/* People cards */
 .person {
   background: white;
   border-radius: 12px;
@@ -66,11 +84,25 @@ body {
   cursor: pointer;
   border: 2px solid #2c7a7b;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
+/* Hover effect */
 .person:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Vertical line above each child */
+.person::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background: #000;
+  transform: translateX(-50%);
 }
 
 /* Popup */
@@ -100,14 +132,22 @@ body {
   cursor: pointer;
 }
 
-/* Mobile */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   .logo {
     width: 40px;
   }
 
   .children {
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
+  }
+
+  /* Hide lines on small screens */
+  .children::before,
+  .person::before {
+    display: none;
   }
 
   .person {
