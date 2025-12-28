@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Khibanation Family Tree</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1>
-            Hi
-        </h1>
-        
-        <script src="" async defer></script>
-    </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khiba Nation Family Tree</title>
+
+  <!-- Icons -->
+  <link rel="icon" href="FAMILY GATHERING LOGO(TRANSPARENT).png" type="image/svg+xml">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <img src="FAMILY GATHERING LOGO(TRANSPARENT).png" alt="Family Logo" class="logo">
+    <h1>Our Family Tree</h1>
+  </header>
+
+  <!-- Search -->
+  <section class="search">
+    <input type="text" id="searchInput" placeholder="🔍 Search family member..." onkeyup="searchMember()">
+  </section>
+
+  <!-- Family Tree -->
+  <main class="tree">
+
+    <div class="person" data-name="grandfather" onclick="showDetails('grandfather')">
+      <h3>👴 Grandfather</h3>
+      <p>🎂 1950</p>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="children">
+      <div class="person" data-name="father" onclick="showDetails('father')">
+        <h3>👨 Father</h3>
+        <p>🎂 1975</p>
+      </div>
+
+      <div class="person" data-name="aunt" onclick="showDetails('aunt')">
+        <h3>👩 Aunt</h3>
+        <p>🎂 1980</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">✖</button>
+      <p id="details"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
