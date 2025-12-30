@@ -1,102 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khiba Nation Family Tree</title>
-
-  <!-- Icons -->
-  <link rel="icon" href="FAMILY GATHERING LOGO(TRANSPARENT).png" type="image/png">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header">
-    <img src="FAMILY GATHERING LOGO(TRANSPARENT).png" alt="Family Logo" class="logo">
-    <h1>Khiba Nation Family Tree</h1>
-  </header>
+  <h1>Khiba Nation Family Tree</h1>
 
-  <!-- Search -->
-  <section class="search">
-    <input type="text" id="searchInput" placeholder="🔍 Search family member..." onkeyup="searchMember()">
-  </section>
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="Search Khiba Family Member..."
+  >
 
-  <!-- Family Tree -->
-  <main class="tree">
+  <div id="tree"></div>
 
-    <!-- Grandparent -->
-    <div class="person" data-name="Khiba" onclick="showDetails('Khiba')">
-      <h3>👴 Khiba</h3>
-      <p>🎂 1950</p>
-    </div>
-
-    <!-- Connector from grandparent to children -->
-    <div class="connector"></div>
-
-    <!-- Children container -->
-    <div class="children">
-
-      <!-- First child -->
-      <div class="person-branch">
-        <div class="person" data-name="Mokgwabone" onclick="showDetails('Mokgwabone')">
-          <h3>👨 Mokgwabone</h3>
-          <p>🎂 1975</p>
-        </div>
-
-        <!-- Connector from this child to grandchildren -->
-        <div class="connector"></div>
-
-        <!-- Grandchildren -->
-        <div class="children">
-          <div class="person" data-name="Ngwana wa ntlha" onclick="showDetails('Ngwana wa ntlha')">
-            <h3>🧑 Ngwana wa ntlha</h3>
-            <p>🎂 2000</p>
-          </div>
-          <div class="person" data-name="Ngwana wa bobedi" onclick="showDetails('Ngwana wa bobedi')">
-            <h3>🧑 Ngwana wa bobedi</h3>
-            <p>🎂 2002</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Second child -->
-      <div class="person-branch">
-        <div class="person" data-name="Motshegetsi" onclick="showDetails('Motshegetsi')">
-          <h3>👨 Motshegetsi</h3>
-          <p>🎂 1980</p>
-        </div>
-
-        <!-- Connector to grandchildren -->
-        <div class="connector"></div>
-
-        <div class="children">
-          <div class="person" data-name="Mabihi" onclick="showDetails('Mabihi')">
-            <h3>🧑 Mabihi</h3>
-            <p>🎂 2005</p>
-          </div>
-          <div class="person" data-name="Kebonang" onclick="showDetails('Kebonang')">
-            <h3>🧑 Kebonang</h3>
-            <p>🎂 2008</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Popup for details -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <button class="close-btn" onclick="closePopup()">✖</button>
-      <p id="details"></p>
-    </div>
-  </div>
-
-  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,156 +1,47 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body */
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  color: #222;
-  background-color: #555;
-}
-
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  background: #f4f6f8;
   padding: 20px;
 }
 
-.logo {
-  width: 100px;
-  height: auto;
+h1 {
+  text-align: center;
 }
 
-/* Search */
-.search {
-  margin-bottom: 20px;
-}
-
-.search input {
+#searchInput {
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
-  width: 280px;
-  max-width: 90%;
+  margin: 20px auto;
+  display: block;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* Tree */
-.tree {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.house {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Connector (vertical line from parent) */
-.connector {
-  width: 2px;
-  height: 30px;
-  background: #000;
+.house-title {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-/* Children container */
+.member {
+  margin-left: 20px;
+}
+
+.member-name {
+  cursor: pointer;
+  padding: 6px 0;
+}
+
 .children {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-  margin-top: 30px;
-}
-
-/* Horizontal line connecting children */
-.children::before {
-  content: "";
-  position: absolute;
-  top: -30px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #000;
-}
-
-/* People cards */
-.person {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  width: 180px;
-  cursor: pointer;
-  border: 2px solid #2c7a7b;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-}
-
-/* Hover effect */
-.person:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* Vertical line above each child */
-.person::before {
-  content: "";
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  width: 2px;
-  height: 30px;
-  background: #000;
-  transform: translateX(-50%);
-}
-
-/* Popup */
-.popup {
+  margin-left: 20px;
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
 }
 
-.popup-content {
-  background: white;
-  width: 300px;
-  padding: 20px;
-  border-radius: 12px;
-  margin: 120px auto;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  right: 12px;
-  top: 10px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-  .logo {
-    width: 40px;
-  }
-
-  .children {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  /* Hide lines on small screens */
-  .children::before,
-  .person::before {
-    display: none;
-  }
-
-  .person {
-    width: 90%;
-  }
-}
