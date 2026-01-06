@@ -1,23 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khiba Nation Family Tree</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Khiba Family Tree</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .house {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .house-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .tree {
+      margin-left: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    ul::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: #ccc;
+    }
+
+    li {
+      margin: 10px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    li::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 0;
+      width: 20px;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .member {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #e3f2fd;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .member:hover {
+      background: #bbdefb;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Khiba Nation Family Tree</h1>
+<h1>Khiba Family Tree</h1>
+<div id="family-tree"></div>
 
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="Search Khiba Family Member..."
-  >
+<script>
+  const familyData = [
+    {
+      house: "Maele House",
+      members: [
+        {
+          name: "Bana ba ga Maele",
+          children: [
+            { name: "Phadima", children: [] },
+            { name: "Khidi", children: [] },
+            { name: "Lotlhare", children: [] },
+            { name: "Tokwana", children: [] }
+          ]
+        }
+      ]
+    },
+    {
+      house: "Lotlhare House",
+      members: [
+        {
+          name: "Bana ba ga Lotlhare",
+          children: [
+            { name: "Mosimane", children: [] },
+            { name: "Mosimanyane", children: [] },
+            { name: "Keakopa", children: [] }
+          ]
+        }
+      ]
+    },
+    {
+      house: "Keakopa 1 House",
+      members: [
+        {
+          name: "Bana ba ga Keakopa (morwa Lotlhare)",
+          children: [
+            { name: "Khiba", children: [] }
+          ]
+        }
+      ]
+    },
+    {
+      house: "Khiba House",
+      members: [
+        {
+          name: "Bana ba ga Khiba",
+          children: [
+            { name: "Keakopa 1", children: [] },
+            { name: "Mokomele", children: [] },
+            { name: "Mosetlhatsela", children: [] }
+          ]
+        }
+      ]
+    },
+    {
+      house: "Bana ba ga Keakopa 2",
+      members: [
+        {
+          name: "Bana ba ga Keakopa 2",
+          children: [
+            { name: "Seameco", children: [] },
+            { name: "Mokgwabone", children: [] },
+            { name: "Botlape", children: [] }
+          ]
+        }
+      ]
+    },
+    {
+      house: "Mme Keehang House",
+      members: [
+        {
+          name: "Bana ba ga Mme Keehang",
+          children: [
+            { name: "Keehang", children: [] },
+            { name: "Itumeleng", children: [] },
+            { name: "Lorekang", children: [] },
+            { name: "Gaedingwe", children: [] },
+            { name: "Golelwang", children: [] }
+          ]
+        }
+      ]
+    }
+  ];
 
-  <div id="tree"></div>
+  const container = document.getElementById('family-tree');
 
-  <script src="script.js"></script>
+  function createTree(member) {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.className = 'member';
+    span.textContent = member.name;
+
+    li.appendChild(span);
+
+    if (member.children && member.children.length > 0) {
+      const ul = document.createElement('ul');
+      member.children.forEach(child => {
+        ul.appendChild(createTree(child));
+      });
+
+      span.addEventListener('click', () => {
+        ul.classList.toggle('hidden');
+      });
+
+      li.appendChild(ul);
+    }
+
+    return li;
+  }
+
+  familyData.forEach(house => {
+    const houseDiv = document.createElement('div');
+    houseDiv.className = 'house';
+
+    const title = document.createElement('div');
+    title.className = 'house-title';
+    title.textContent = house.house;
+
+    const treeDiv = document.createElement('div');
+    treeDiv.className = 'tree';
+
+    const ul = document.createElement('ul');
+    house.members.forEach(member => {
+      ul.appendChild(createTree(member));
+    });
+
+    treeDiv.appendChild(ul);
+    houseDiv.appendChild(title);
+    houseDiv.appendChild(treeDiv);
+    container.appendChild(houseDiv);
+  });
+</script>
+
 </body>
 </html>
