@@ -3,18 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Khiba Family Tree</title>
+
+<!-- Outfit Font -->
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 <style>
 body {
   font-family: 'Outfit', sans-serif;
+  padding: 20px;
   min-height: 100vh;
   background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("FAMILY GATHERING LOGO(TRANSPARENT).png") no-repeat center center;
   background-size: contain;
   background-attachment: fixed;
   background-color: #000;
   color: #fff;
+  overflow-x: auto;
 }
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -22,10 +30,12 @@ h1 {
   font-size: 2.5em;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
 }
+
 .search-container {
   text-align: center;
   margin-bottom: 15px;
 }
+
 .search-container input {
   padding: 8px 12px;
   width: 250px;
@@ -34,6 +44,7 @@ h1 {
   outline: none;
   font-size: 1em;
 }
+
 .search-container button {
   padding: 8px 12px;
   border: none;
@@ -43,20 +54,54 @@ h1 {
   cursor: pointer;
   margin-left: 5px;
 }
+
 .breadcrumbs {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.1em;
   color: #ffeb3b;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
 }
+
+.breadcrumbs.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .tree {
   display: flex;
   justify-content: center;
 }
-ul { list-style: none; padding-left: 20px; position: relative; }
-ul::before { content: ''; position: absolute; top:0; left:0; width:1px; height:100%; background:#ccc; }
-li { margin: 10px 0; padding-left: 20px; position: relative; }
-li::before { content: ''; position:absolute; top:12px; left:0; width:20px; height:1px; background:#ccc; }
+
+ul {
+  list-style: none;
+  padding-left: 20px;
+  position: relative;
+}
+
+ul::before {
+  content: '';
+  position: absolute;
+  top:0; left:0;
+  width:1px; height:100%;
+  background:#ccc;
+}
+
+li {
+  margin: 10px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+li::before {
+  content: '';
+  position:absolute; top:12px; left:0;
+  width:20px; height:1px;
+  background:#ccc;
+}
+
 .node {
   display: inline-flex; align-items: center;
   padding: 6px 12px;
@@ -65,16 +110,54 @@ li::before { content: ''; position:absolute; top:12px; left:0; width:20px; heigh
   border: 1px solid #333;
   border-radius: 25px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
 .node i { margin-right:6px; color:#4CAF50; }
-.node:hover { background:#f0f0f0; transform: scale(1.05); }
-.children { display:none; margin-left:20px; animation:fadeIn 0.5s forwards; }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-.highlight { background:#ffeb3b !important; color:#000 !important; transform:scale(1.1); }
-.highlight-connection { color:#ff9800 !important; font-weight:bold; }
+
+.node:hover {
+  background:#f0f0f0;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 235, 59, 0.5);
+}
+
+.children {
+  max-height: 0;
+  overflow: hidden;
+  margin-left:20px;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.children.show {
+  max-height: 1000px; /* enough for deep trees */
+  opacity: 1;
+}
+
+.highlight {
+  background: #ffeb3b !important;
+  color: #000 !important;
+  animation: flash 1s ease;
+}
+
+@keyframes flash {
+  0%, 100% { background: #ffeb3b; }
+  50% { background: #fff176; }
+}
+
+.highlight-connection {
+  color: #ff9800 !important;
+  font-weight: bold;
+  animation: pulse 0.8s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 </style>
 </head>
 <body>
@@ -153,20 +236,20 @@ li::before { content: ''; position:absolute; top:12px; left:0; width:20px; heigh
 </div>
 
 <script>
-// Toggle children
+// Toggle children with animation
 document.querySelectorAll('.node').forEach(node => {
   node.addEventListener('click', e => {
     e.stopPropagation();
     const children = node.nextElementSibling;
     if(children && children.classList.contains('children')){
-      children.style.display = children.style.display==='none' || children.style.display==='' ? 'block':'none';
+      children.classList.toggle('show');
     }
     showBreadcrumbs(node);
     highlightConnections(node);
   });
 });
 
-// Safe breadcrumbs
+// Breadcrumbs
 function showBreadcrumbs(node){
   let path = [];
   let current = node;
@@ -176,15 +259,17 @@ function showBreadcrumbs(node){
     if(!parentLi) break;
     current = parentLi.querySelector('.node');
   }
-  document.getElementById('breadcrumbs').textContent = 'Selected: '+path.join(' → ');
+  const bc = document.getElementById('breadcrumbs');
+  bc.textContent = 'Selected: '+path.join(' → ');
+  bc.classList.add('show');
 }
 
-// Safe highlight connections
+// Highlight parents and children
 function highlightConnections(node){
   document.querySelectorAll('.node').forEach(n=>n.classList.remove('highlight-connection'));
   node.classList.add('highlight-connection');
 
-  // highlight parents
+  // parents
   let current = node;
   while(current){
     let parentLi = current.closest('ul').closest('li');
@@ -194,14 +279,11 @@ function highlightConnections(node){
     current = parentNode;
   }
 
-  // highlight children
-  function highlightChildren(el){
-    const children = el.nextElementSibling;
-    if(children && children.classList.contains('children')){
-      children.querySelectorAll('.node').forEach(n=>n.classList.add('highlight-connection'));
-    }
+  // children
+  const children = node.nextElementSibling;
+  if(children && children.classList.contains('children')){
+    children.querySelectorAll('.node').forEach(n=>n.classList.add('highlight-connection'));
   }
-  highlightChildren(node);
 }
 
 // Search
@@ -211,10 +293,10 @@ function searchMember(){
     node.classList.remove('highlight');
     if(node.textContent.toLowerCase().includes(searchValue) && searchValue!==''){
       node.classList.add('highlight');
-      // Expand parents
+      // expand parents
       let parent = node.parentElement;
       while(parent && parent.classList.contains('children')){
-        parent.style.display='block';
+        parent.classList.add('show');
         parent = parent.parentElement.parentElement;
       }
       node.scrollIntoView({behavior:'smooth', block:'center'});
