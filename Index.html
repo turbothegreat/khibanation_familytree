@@ -1,224 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Khiba Family Tree</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .house {
-      margin-bottom: 40px;
-      padding: 20px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-
-    .house-title {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      color: #333;
-    }
-
-    .tree {
-      margin-left: 20px;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    ul::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1px;
-      height: 100%;
-      background: #ccc;
-    }
-
-    li {
-      margin: 10px 0;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    li::before {
-      content: '';
-      position: absolute;
-      top: 12px;
-      left: 0;
-      width: 20px;
-      height: 1px;
-      background: #ccc;
-    }
-
-    .member {
-      display: inline-block;
-      padding: 6px 12px;
-      background: #e3f2fd;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .member:hover {
-      background: #bbdefb;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Khiba Family Tree</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+body {
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("FAMILY GATHERING LOGO(TRANSPARENT).png") no-repeat center center;
+  background-size: contain;
+  background-attachment: fixed;
+  background-color: #000;
+  color: #fff;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f0f8ff;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+.search-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.search-container input {
+  padding: 8px 12px;
+  width: 250px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+.search-container button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.breadcrumbs {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  color: #ffeb3b;
+}
+.tree {
+  display: flex;
+  justify-content: center;
+}
+ul { list-style: none; padding-left: 20px; position: relative; }
+ul::before { content: ''; position: absolute; top:0; left:0; width:1px; height:100%; background:#ccc; }
+li { margin: 10px 0; padding-left: 20px; position: relative; }
+li::before { content: ''; position:absolute; top:12px; left:0; width:20px; height:1px; background:#ccc; }
+.node {
+  display: inline-flex; align-items: center;
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.node i { margin-right:6px; color:#4CAF50; }
+.node:hover { background:#f0f0f0; transform: scale(1.05); }
+.children { display:none; margin-left:20px; animation:fadeIn 0.5s forwards; }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+.highlight { background:#ffeb3b !important; color:#000 !important; transform:scale(1.1); }
+.highlight-connection { color:#ff9800 !important; font-weight:bold; }
+</style>
 </head>
 <body>
 
 <h1>Khiba Family Tree</h1>
-<div id="family-tree"></div>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search family member..." />
+  <button onclick="searchMember()"><i class="fas fa-search"></i> Search</button>
+</div>
+
+<div class="breadcrumbs" id="breadcrumbs">Selected: None</div>
+
+<div class="tree">
+  <ul>
+    <li>
+      <span class="node">MAELE</span>
+      <ul class="children">
+        <li><span class="node">PHADIMA</span></li>
+        <li><span class="node">KHIDI</span></li>
+        <li>
+          <span class="node">LOTLHARE</span>
+          <ul class="children">
+            <li><span class="node">MOSIMANE</span></li>
+            <li><span class="node">MOSIMANYANE</span></li>
+            <li>
+              <span class="node">KEAKOPA 1</span>
+              <ul class="children">
+                <li>
+                  <span class="node">KHIBA</span>
+                  <ul class="children">
+                    <li>
+                      <span class="node">KEAKOPA 2</span>
+                      <ul class="children">
+                        <li><span class="node">SEAMECO</span></li>
+                        <li>
+                          <span class="node">MOKGWABONE</span>
+                          <ul class="children">
+                            <li><span class="node">MOJIMOLOI</span></li>
+                            <li>
+                              <span class="node">MMA KEEHANG</span>
+                              <ul class="children">
+                                <li><span class="node">KEEHANG</span></li>
+                                <li><span class="node">ITUMELENG</span></li>
+                                <li><span class="node">LOREKANG</span></li>
+                                <li><span class="node">GAEDINGWE</span></li>
+                                <li><span class="node">GOLELWANG</span></li>
+                              </ul>
+                            </li>
+                            <li>
+                              <span class="node">NYEKE</span>
+                              <ul class="children">
+                                <li><span class="node">MABIHI</span></li>
+                                <li><span class="node">SEGWAGWA</span></li>
+                                <li><span class="node">MOSIME</span></li>
+                                <li><span class="node">MOSIMENYANE</span></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><span class="node">BOTLAPE</span></li>
+                      </ul>
+                    </li>
+                    <li><span class="node">MOKOMELE</span></li>
+                    <li><span class="node">MOSETLHATSELA</span></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><span class="node">TOKWANA</span></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 
 <script>
-  const familyData = [
-    {
-      house: "Maele House",
-      members: [
-        {
-          name: "Bana ba ga Maele",
-          children: [
-            { name: "Phadima", children: [] },
-            { name: "Khidi", children: [] },
-            { name: "Lotlhare", children: [] },
-            { name: "Tokwana", children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      house: "Lotlhare House",
-      members: [
-        {
-          name: "Bana ba ga Lotlhare",
-          children: [
-            { name: "Mosimane", children: [] },
-            { name: "Mosimanyane", children: [] },
-            { name: "Keakopa", children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      house: "Keakopa 1 House",
-      members: [
-        {
-          name: "Bana ba ga Keakopa (morwa Lotlhare)",
-          children: [
-            { name: "Khiba", children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      house: "Khiba House",
-      members: [
-        {
-          name: "Bana ba ga Khiba",
-          children: [
-            { name: "Keakopa 1", children: [] },
-            { name: "Mokomele", children: [] },
-            { name: "Mosetlhatsela", children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      house: "Bana ba ga Keakopa 2",
-      members: [
-        {
-          name: "Bana ba ga Keakopa 2",
-          children: [
-            { name: "Seameco", children: [] },
-            { name: "Mokgwabone", children: [] },
-            { name: "Botlape", children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      house: "Mme Keehang House",
-      members: [
-        {
-          name: "Bana ba ga Mme Keehang",
-          children: [
-            { name: "Keehang", children: [] },
-            { name: "Itumeleng", children: [] },
-            { name: "Lorekang", children: [] },
-            { name: "Gaedingwe", children: [] },
-            { name: "Golelwang", children: [] }
-          ]
-        }
-      ]
+// Toggle children
+document.querySelectorAll('.node').forEach(node => {
+  node.addEventListener('click', e => {
+    e.stopPropagation();
+    const children = node.nextElementSibling;
+    if(children && children.classList.contains('children')){
+      children.style.display = children.style.display==='none' || children.style.display==='' ? 'block':'none';
     }
-  ];
+    showBreadcrumbs(node);
+    highlightConnections(node);
+  });
+});
 
-  const container = document.getElementById('family-tree');
+// Safe breadcrumbs
+function showBreadcrumbs(node){
+  let path = [];
+  let current = node;
+  while(current){
+    path.unshift(current.textContent.trim());
+    let parentLi = current.closest('ul').closest('li');
+    if(!parentLi) break;
+    current = parentLi.querySelector('.node');
+  }
+  document.getElementById('breadcrumbs').textContent = 'Selected: '+path.join(' → ');
+}
 
-  function createTree(member) {
-    const li = document.createElement('li');
-    const span = document.createElement('span');
-    span.className = 'member';
-    span.textContent = member.name;
+// Safe highlight connections
+function highlightConnections(node){
+  document.querySelectorAll('.node').forEach(n=>n.classList.remove('highlight-connection'));
+  node.classList.add('highlight-connection');
 
-    li.appendChild(span);
-
-    if (member.children && member.children.length > 0) {
-      const ul = document.createElement('ul');
-      member.children.forEach(child => {
-        ul.appendChild(createTree(child));
-      });
-
-      span.addEventListener('click', () => {
-        ul.classList.toggle('hidden');
-      });
-
-      li.appendChild(ul);
-    }
-
-    return li;
+  // highlight parents
+  let current = node;
+  while(current){
+    let parentLi = current.closest('ul').closest('li');
+    if(!parentLi) break;
+    let parentNode = parentLi.querySelector('.node');
+    if(parentNode) parentNode.classList.add('highlight-connection');
+    current = parentNode;
   }
 
-  familyData.forEach(house => {
-    const houseDiv = document.createElement('div');
-    houseDiv.className = 'house';
+  // highlight children
+  function highlightChildren(el){
+    const children = el.nextElementSibling;
+    if(children && children.classList.contains('children')){
+      children.querySelectorAll('.node').forEach(n=>n.classList.add('highlight-connection'));
+    }
+  }
+  highlightChildren(node);
+}
 
-    const title = document.createElement('div');
-    title.className = 'house-title';
-    title.textContent = house.house;
-
-    const treeDiv = document.createElement('div');
-    treeDiv.className = 'tree';
-
-    const ul = document.createElement('ul');
-    house.members.forEach(member => {
-      ul.appendChild(createTree(member));
-    });
-
-    treeDiv.appendChild(ul);
-    houseDiv.appendChild(title);
-    houseDiv.appendChild(treeDiv);
-    container.appendChild(houseDiv);
+// Search
+function searchMember(){
+  const searchValue = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.node').forEach(node=>{
+    node.classList.remove('highlight');
+    if(node.textContent.toLowerCase().includes(searchValue) && searchValue!==''){
+      node.classList.add('highlight');
+      // Expand parents
+      let parent = node.parentElement;
+      while(parent && parent.classList.contains('children')){
+        parent.style.display='block';
+        parent = parent.parentElement.parentElement;
+      }
+      node.scrollIntoView({behavior:'smooth', block:'center'});
+    }
   });
+}
 </script>
 
 </body>
