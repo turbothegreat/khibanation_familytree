@@ -1,337 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Khiba Family Tree</title>
-
-<!-- Outfit Font -->
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<style>
-body {
-  font-family: 'Outfit', sans-serif;
-  padding: 20px;
-  min-height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-              url("FAMILY GATHERING LOGO(TRANSPARENT).png") no-repeat center center;
-  background-size: contain;
-  background-attachment: fixed;
-  background-color: #000;
-  color: #fff;
-  overflow-x: auto;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5em;
-  color: #f0f8ff;
-}
-
-.search-container {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.search-container input {
-  padding: 8px 12px;
-  width: 250px;
-  border-radius: 20px;
-  border: none;
-}
-
-.search-container button {
-  padding: 8px 12px;
-  border: none;
-  background: #4CAF50;
-  color: #fff;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.breadcrumbs {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #ffeb3b;
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.breadcrumbs.show {
-  opacity: 1;
-}
-
-.tree {
-  display: flex;
-  justify-content: center;
-}
-
-ul {
-  list-style: none;
-  padding-left: 20px;
-  position: relative;
-}
-
-ul::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background: #ccc;
-}
-
-li {
-  margin: 10px 0;
-  padding-left: 20px;
-  position: relative;
-}
-
-li::before {
-  content: '';
-  position: absolute;
-  top: 12px;
-  left: 0;
-  width: 20px;
-  height: 1px;
-  background: #ccc;
-}
-
-.node {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  background: #fff;
-  color: #333;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.node:hover {
-  transform: scale(1.05);
-  background: #f0f0f0;
-}
-
-.children {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: 0.5s;
-}
-
-.children.show {
-  max-height: 1000px;
-  opacity: 1;
-}
-
-.highlight {
-  background: #ffeb3b !important;
-  color: #000 !important;
-}
-
-/* ===== FAMILY GALLERY ===== */
-.gallery-section {
-  margin-top: 60px;
-  text-align: center;
-}
-
-.gallery-section h2 {
-  color: #ffeb3b;
-  margin-bottom: 20px;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.gallery img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,235,59,0.6);
-}
-
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
-
-.lightbox.show {
-  display: flex;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khiba Family Tree</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<h1>Khiba Family Tree</h1>
+    <header>
+        <h1>Khiba Family Tree</h1>
+        
+        <div class="stats-bar" id="statsBar">
+            <i class="fas fa-users"></i> Total Members: <span id="memberCount">0</span>
+        </div>
 
-<div class="search-container">
-  <input type="text" id="searchInput" placeholder="Search family member..." />
-  <button onclick="searchMember()"><i class="fas fa-search"></i></button>
-</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search family member...">
+            <button onclick="searchMember()"><i class="fas fa-search"></i></button>
+            <button onclick="resetSearch()" class="btn-secondary"><i class="fas fa-undo"></i></button>
+        </div>
 
-<div class="breadcrumbs" id="breadcrumbs">Selected: None</div>
+        <div class="tree-controls">
+            <button onclick="toggleAll(true)">Expand All</button>
+            <button onclick="toggleAll(false)">Collapse All</button>
+        </div>
 
-<div class="tree">
-<ul>
-<li>
-<span class="node">MAELE</span>
-<ul class="children">
-<li><span class="node">PHADIMA</span></li>
-<li><span class="node">KHIDI</span></li>
-<li>
-<span class="node">LOTLHARE</span>
-<ul class="children">
-<li><span class="node">MOSIMANE</span></li>
-<li><span class="node">MOSIMANYANE</span></li>
-<li>
-<span class="node">KEAKOPA 1</span>
-<ul class="children">
-<li>
-<span class="node">KHIBA</span>
-<ul class="children">
-<li>
-<span class="node">KEAKOPA 2</span>
-<ul class="children">
-<li><span class="node">SEAMECO</span></li>
-<li>
-<span class="node">MOKGWABONE</span>
-<ul class="children">
-<li><span class="node">MOJIMOLOI</span></li>
-<li>
-<span class="node">MMA KEEHANG</span>
-<ul class="children">
-<li><span class="node">KEEHANG</span></li>
-<li><span class="node">ITUMELENG</span></li>
-<li><span class="node">LOREKANG</span></li>
-<li><span class="node">GAEDINGWE</span></li>
-<li><span class="node">GOLELWANG</span></li>
-</ul>
-</li>
-<li>
-<span class="node">NYEKE</span>
-<ul class="children">
-<li><span class="node">MABIHI</span></li>
-<li><span class="node">SEGWAGWA</span></li>
-<li><span class="node">MOSIME</span></li>
-<li><span class="node">MOSIMENYANE</span></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><span class="node">BOTLAPE</span></li>
-</ul>
-</li>
-<li><span class="node">MOKOMELE</span></li>
-<li><span class="node">MOSETLHATSELA</span></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><span class="node">TOKWANA</span></li>
-</ul>
-</li>
-</ul>
-</div>
+        <div class="breadcrumbs" id="breadcrumbs">Selected: None</div>
+    </header>
 
-<!-- ===== FAMILY PHOTOS SECTION ===== -->
-<div class="gallery-section">
-<h2>📸 Khiba Family Photos</h2>
-<div class="gallery">
-  <!-- put your images inside a folder called photos -->
-  <img src="photos/family1.jpg" onclick="openLightbox(this)">
-  <img src="photos/family2.jpg" onclick="openLightbox(this)">
-  <img src="photos/family3.jpg" onclick="openLightbox(this)">
-  <img src="photos/family4.jpg" onclick="openLightbox(this)">
-</div>
-</div>
+    <main class="tree-wrapper">
+        <div class="tree" id="familyTree">
+            <ul>
+                <li>
+                    <span class="node" data-gen="1">MAELE</span>
+                    <ul class="children">
+                        <li><span class="node" data-gen="2">PHADIMA</span></li>
+                        <li><span class="node" data-gen="2">KHIDI</span></li>
+                        <li>
+                            <span class="node" data-gen="2">LOTLHARE</span>
+                            <ul class="children">
+                                <li><span class="node" data-gen="3">MOSIMANE</span></li>
+                                <li><span class="node" data-gen="3">MOSIMANYANE</span></li>
+                                <li>
+                                    <span class="node" data-gen="3">KEAKOPA 1</span>
+                                    <ul class="children">
+                                        <li>
+                                            <span class="node" data-gen="4">KHIBA</span>
+                                            <ul class="children">
+                                                <li>
+                                                    <span class="node" data-gen="5">KEAKOPA 2</span>
+                                                    <ul class="children">
+                                                        <li><span class="node" data-gen="6">SEAMECO</span></li>
+                                                        <li>
+                                                            <span class="node" data-gen="6">MOKGWABONE</span>
+                                                            <ul class="children">
+                                                                <li><span class="node" data-gen="7">MOJIMOLOI</span></li>
+                                                                <li>
+                                                                    <span class="node" data-gen="7">MMA KEEHANG</span>
+                                                                    <ul class="children">
+                                                                        <li><span class="node" data-gen="8">KEEHANG</span></li>
+                                                                        <li><span class="node" data-gen="8">ITUMELENG</span></li>
+                                                                        <li><span class="node" data-gen="8">LOREKANG</span></li>
+                                                                        <li><span class="node" data-gen="8">GAEADINGWE</span></li>
+                                                                        <li><span class="node" data-gen="8">GOLELELWANG</span></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="node" data-gen="7">NYEKE</span>
+                                                                    <ul class="children">
+                                                                        <li><span class="node" data-gen="8">MABIHI</span></li>
+                                                                        <li><span class="node" data-gen="8">SEGWAGWA</span></li>
+                                                                        <li><span class="node" data-gen="8">MOSIME</span></li>
+                                                                        <li><span class="node" data-gen="8">MOSIMENYANE</span></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><span class="node" data-gen="6">BOTLAPE</span></li>
+                                                    </ul>
+                                                </li>
+                                                <li><span class="node" data-gen="5">MOKOMELE</span></li>
+                                                <li><span class="node" data-gen="5">MOSETLHATSELA</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="node" data-gen="3">TOKWANA</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </main>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-<img id="lightboxImg">
-</div>
+    <section class="gallery-section">
+        <h2>📸 Khiba Family Photos</h2>
+        <div class="gallery">
+            <img src="photos/family1.jpg" alt="Family Photo 1" class="gallery-img">
+            <img src="photos/family2.jpg" alt="Family Photo 2" class="gallery-img">
+            <img src="photos/family3.jpg" alt="Family Photo 3" class="gallery-img">
+            <img src="photos/family4.jpg" alt="Family Photo 4" class="gallery-img">
+        </div>
+    </section>
 
-<script>
-// Tree toggle
-document.querySelectorAll('.node').forEach(node => {
-  node.addEventListener('click', e => {
-    e.stopPropagation();
-    const children = node.nextElementSibling;
-    if(children && children.classList.contains('children')){
-      children.classList.toggle('show');
-    }
-    showBreadcrumbs(node);
-  });
-});
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightboxImg" src="" alt="Zoomed view">
+    </div>
 
-function showBreadcrumbs(node){
-  let path = [];
-  let current = node;
-  while(current){
-    path.unshift(current.textContent.trim());
-    let parentLi = current.closest('ul').closest('li');
-    if(!parentLi) break;
-    current = parentLi.querySelector('.node');
-  }
-  const bc = document.getElementById('breadcrumbs');
-  bc.textContent = 'Selected: ' + path.join(' → ');
-  bc.classList.add('show');
-}
-
-function searchMember(){
-  const value = document.getElementById('searchInput').value.toLowerCase();
-  document.querySelectorAll('.node').forEach(n=>{
-    n.classList.remove('highlight');
-    if(n.textContent.toLowerCase().includes(value) && value !== ''){
-      n.classList.add('highlight');
-      let parent = n.parentElement;
-      while(parent && parent.classList.contains('children')){
-        parent.classList.add('show');
-        parent = parent.parentElement.parentElement;
-      }
-      n.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-  });
-}
-
-// Gallery
-function openLightbox(img){
-  document.getElementById('lightboxImg').src = img.src;
-  document.getElementById('lightbox').classList.add('show');
-}
-
-function closeLightbox(){
-  document.getElementById('lightbox').classList.remove('show');
-}
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
