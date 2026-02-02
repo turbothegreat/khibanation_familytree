@@ -192,3 +192,24 @@ h1 {
     color: white;
     cursor: pointer;
 }
+/* --- Active Path Styling --- */
+:root {
+    --path-color: #328c46; /* Bright Blueish - Change to #4CAF50 for Green */
+}
+
+/* Change the border of the active node and its ancestors */
+.active-branch > .node {
+    border: 2px solid var(--path-color) !important;
+    box-shadow: 0 0 15px var(--path-color);
+    color: #000;
+    background: #e0f7fa; /* Light blue tint for the node background */
+}
+
+/* Target the connecting lines (vertical and horizontal) of the active path */
+.active-branch::before, 
+.active-branch::after,
+.active-branch > ul::before {
+    border-color: var(--path-color) !important;
+    border-width: 2px !important; /* Make the path line thicker */
+    z-index: 1;
+}
