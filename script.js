@@ -126,3 +126,82 @@ function toggleAll(expand) {
     // Optional: Clear paths when collapsing all for a clean look
     if (!expand) resetSearch();
 }
+
+/* ============================
+   FAMILY GATHERINGS / EVENTS
+   ============================ */
+
+// Add your events here — easiest place to update them
+const familyEvents = [
+    {
+        title: "Annual Khibanation Family Reunion",
+        location: "Maseru, Lesotho",
+        date: "2024-12-15",
+        description: "End of year gathering with all branches."
+    },
+    {
+        title: "Memorial Service",
+        location: "Leribe, Lesotho",
+        date: "2024-06-08",
+        description: "Honoring our ancestors."
+    },
+    {
+        title: "Wedding Celebration",
+        location: "Maseru, Lesotho",
+        date: "2023-11-25",
+        description: "Family wedding for the Khiba branch."
+    },
+    {
+        title: "Christmas Gathering",
+        location: "Teyateyaneng, Lesotho",
+        date: "2023-12-25",
+        description: "Festive season family meetup."
+    }
+];
+
+// Render the events
+function renderEvents() {
+    const grid = document.getElementById("eventsGrid");
+    const countSpan = document.getElementById("eventCount");
+
+    if (!grid) return;
+
+    // Update total counter
+    countSpan.textContent = familyEvents.length;
+
+    if (familyEvents.length === 0) {
+        grid.innerHTML = `<p class="no-events">No gatherings recorded yet.</p>`;
+        return;
+    }
+
+    // Sort newest first
+    const sorted = [...familyEvents].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+    );
+
+    grid.innerHTML = sorted.map(ev => {
+        const d = new Date(ev.date);
+        const day = d.toLocaleDateString("en-GB", { day: "2-digit" });
+        const month = d.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+        const year = d.getFullYear();
+
+        return `
+            <div class="event-card">
+                <div class="event-date">
+                    <span class="event-day">${day}</span>
+                    <span class="event-month">${month}</span>
+                    <span class="event-year">${year}</span>
+                </div>
+                <div class="event-info">
+                    <h3>${ev.title}</h3>
+                    <p class="event-location">
+                        <i class="fas fa-map-marker-alt"></i> ${ev.location}
+                    </p>
+                    <p class="event-desc">${ev.description || ""}</p>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+document.addEventListener("DOMContentLoaded", renderEvents);s
